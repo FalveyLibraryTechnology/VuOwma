@@ -21,7 +21,11 @@ class GetMessageHandler implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request) : ResponseInterface
     {
-        $data = $this->table->select()->toArray();
+        $formatter = function($arr) {
+            $arr['data'] = json_decode($arr['data'] ?? '{}');
+            return $arr;
+        };
+        $data = array_map($formatter, $this->table->select()->toArray());
         return new JsonResponse($data);
     }
 }

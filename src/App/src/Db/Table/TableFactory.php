@@ -6,7 +6,7 @@ use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\Session\SessionManager;
 
-class MessageFactory
+class TableFactory
 {
     /**
      * Create an object

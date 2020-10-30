@@ -31,7 +31,8 @@ class ConfigProvider
     {
         return [
             'factories' => [
-                Db\Table\Message::class => Db\Table\MessageFactory::class,
+                Db\Table\Batch::class => Db\Table\TableFactory::class,
+                Db\Table\Message::class => Db\Table\TableFactory::class,
                 Handler\GetMessageHandler::class => Handler\MessageAwareFactory::class,
                 Handler\SaveMessageHandler::class => Handler\MessageAwareFactory::class,
             ],
