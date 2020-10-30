@@ -11,10 +11,16 @@ declare(strict_types=1);
 
 return [
   'db' => [
-        'driver'    => 'mysqli',
-        'database' => 'vuowma',
-        'username'  => 'vuowma_user',
-        'password'  => 'vuowma_pass',
-        'charset'  => 'utf8',
+      'driver'    => 'mysqli',
+      'database' => 'vuowma',
+      'username'  => 'vuowma_user',
+      'password'  => 'vuowma_pass',
+      'charset'  => 'utf8',
+  ],
+  'vuowma' => [
+      // The public URL for this application, for link-generating purposes:
+      'base_url' => 'http://localhost/vuowma/',
+      // The webhook URL for Office365, for message-forwarding:
+      'webhook_url' => 'https://outlook.office.com/webhook/xxx/IncomingWebhook/yyy',
   ],
 ];

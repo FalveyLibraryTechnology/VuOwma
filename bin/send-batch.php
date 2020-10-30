@@ -1,6 +1,7 @@
 <?php
 
 use App\Db\Table;
+use App\MessageForwarder;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -38,7 +39,9 @@ if ($count != count($messages)) {
     $messages = $messageTable->select(['batch_id' => $batch['id']])->toArray();
 }
 
-// TODO: send the batch
+// Send the batch
+$forwarder = $container->get(MessageForwarder::class);
+$forwarder->forward($messages);
 
 // Mark the batch as sent
 $batchTable->update(['sent' => 1], ['id' => $batch['id']]);

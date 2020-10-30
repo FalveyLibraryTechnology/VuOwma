@@ -35,6 +35,7 @@ class ConfigProvider
                 Db\Table\Message::class => Db\Table\TableFactory::class,
                 Handler\GetMessageHandler::class => Handler\MessageAwareFactory::class,
                 Handler\SaveMessageHandler::class => Handler\MessageAwareFactory::class,
+                MessageForwarder::class => MessageForwarderFactory::class,
             ],
             'invokables' => [
                 Handler\TooManyHandler::class => Handler\TooManyHandler::class,
