@@ -41,7 +41,7 @@ if ($count != count($messages)) {
 
 // Send the batch
 $forwarder = $container->get(MessageForwarder::class);
-$forwarder->forward($messages);
+$forwarder->forward($messages, $batch['id']);
 
 // Mark the batch as sent
 $batchTable->update(['sent' => 1], ['id' => $batch['id']]);
