@@ -26,7 +26,7 @@ class GetMessageHandler implements RequestHandlerInterface
             return $arr;
         };
         $batch_id = $request->getQueryParams()['batch'] ?? null;
-        $filter = $batch_id ? compact('batch_id') : [];
+        $filter = $batch_id ? compact('batch_id') : ['batch_id' => null];
         $data = array_map($formatter, $this->table->select($filter)->toArray());
         return new JsonResponse($data);
     }
