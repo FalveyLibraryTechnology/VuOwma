@@ -1,4 +1,2 @@
-/clover.xml
-/coveralls-upload.json
-/phpunit.xml
+.phpunit.result.cache
 /vendor/

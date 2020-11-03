@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!-- derived from VuFind standards -->
+<ruleset name="VuOwma Coding Standards" namespace="VuOwma\PHPCS">
+  <description>Coding standards for VuOwma.</description>
+  <file>bin</file>
+  <file>src</file>
+  <arg name="extensions" value="php"/>
+  <rule ref="PEAR">
+    <exclude name="PEAR.Commenting.FunctionComment.ParamCommentAlignment" />
+  </rule>
+</ruleset>
