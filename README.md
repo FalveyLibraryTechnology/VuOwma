@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/FalveyLibraryTechnology/VuOwma.svg?branch=dev)](https://travis-ci.com/FalveyLibraryTechnology/VuOwma)
+
 # VuOwma - Outlook365 Webhook Message Aggregator
 
 This tool was developed at Villanova University to aggregate O365 webhook messages coming from VuFind's logger. This prevents heavy traffic from triggering rate limits on the O365 platform.
