@@ -72,7 +72,7 @@ class GetMessageHandler implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request) : ResponseInterface
     {
-        $formatter = function($arr) {
+        $formatter = function ($arr) {
             $arr['data'] = json_decode($arr['data'] ?? '{}');
             return $arr;
         };

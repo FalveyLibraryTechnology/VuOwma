@@ -30,7 +30,7 @@ use App\MessageForwarder;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$container = require __DIR__ . '/../config/container.php';
+$container = include __DIR__ . '/../config/container.php';
 
 $messageTable = $container->get(Table\Message::class);
 $batchTable = $container->get(Table\Batch::class);
