@@ -28,8 +28,6 @@
 namespace App\Db\Table;
 
 use Interop\Container\ContainerInterface;
-use Laminas\ServiceManager\Factory\FactoryInterface;
-use Laminas\Session\SessionManager;
 
 /**
  * Table factory

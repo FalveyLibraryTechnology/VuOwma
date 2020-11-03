@@ -27,7 +27,6 @@
  * @see      https://docs.laminas.dev/laminas-component-installer/
  */
 declare(strict_types=1);
-
 namespace App;
 
 /**

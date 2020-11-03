@@ -28,8 +28,6 @@
 namespace App;
 
 use Interop\Container\ContainerInterface;
-use Laminas\ServiceManager\Factory\FactoryInterface;
-use Laminas\Session\SessionManager;
 
 /**
  * Factory for MessageForwarder.

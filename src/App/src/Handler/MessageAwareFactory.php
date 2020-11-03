@@ -28,8 +28,6 @@
 namespace App\Handler;
 
 use Interop\Container\ContainerInterface;
-use Laminas\ServiceManager\Factory\FactoryInterface;
-use Laminas\Session\SessionManager;
 
 /**
  * Factory for handlers depending on the Message table gateway.
