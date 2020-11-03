@@ -1,0 +1,18 @@
+sudo: false
+language: php
+php:
+  - 7.3
+  - 7.4
+
+before_script:
+  - phpenv config-rm xdebug.ini
+  - phpenv rehash
+  - composer install
+
+cache:
+  directories:
+    - .php_cs_cache
+    - $HOME/.composer/cache/files
+
+script:
+  - vendor/bin/phing phpunitfast phpcs-console php-cs-fixer-dryrun
