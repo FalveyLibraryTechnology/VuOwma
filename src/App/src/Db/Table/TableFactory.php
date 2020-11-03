@@ -60,6 +60,8 @@ class TableFactory
         if (!empty($options)) {
             throw new \Exception('Unexpected options passed to factory.');
         }
-        return new $requestedName($container->get(\Laminas\Db\Adapter\Adapter::class));
+        return new $requestedName(
+            $container->get(\Laminas\Db\Adapter\Adapter::class)
+        );
     }
 }

@@ -45,12 +45,15 @@ $unsentBatches = array_map(
 $messages = $messageTable->select(['batch_id' => null])->toArray();
 
 if (count($messages) == 0) {
-    // No messages to send? Set up an empty placeholder batch in case we still need to resend failed batches:
+    // No messages to send? Set up an empty placeholder batch in case we still
+    // need to resend failed batches:
     $batch = null;
 } else {
     // If we got this far, we have messages, so let's create a batch:
     $batchTable->insert(['sent' => 0]);
-    $batch = $batchTable->select(['id' => $batchTable->getLastInsertValue()])->toArray()[0];
+    $batch = $batchTable->select(
+        ['id' => $batchTable->getLastInsertValue()]
+    )->toArray()[0];
 
     $where = function ($sql) use ($messages) {
         $messageIds = array_map(
@@ -63,8 +66,8 @@ if (count($messages) == 0) {
     };
     $count = $messageTable->update(['batch_id' => $batch['id']], $where);
 
-    // If something weird happened and we updated an unexpected number of rows, we should
-    // reload the messages:
+    // If something weird happened and we updated an unexpected number of rows,
+    // we should reload the messages:
     if ($count != count($messages)) {
         echo "WARNING: message count mismatch; reloading data!\n";
         $messages = $messageTable->select(['batch_id' => $batch['id']])->toArray();

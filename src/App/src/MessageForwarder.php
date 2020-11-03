@@ -80,7 +80,9 @@ class MessageForwarder
     public function __construct(array $options = [])
     {
         if (!isset($options['base_url']) || !isset($options['webhook_url'])) {
-            throw new \Exception('base_url and webhook_url settings are both required!');
+            throw new \Exception(
+                'base_url and webhook_url settings are both required!'
+            );
         }
         $this->vuowmaUrl = $options['base_url'];
         $this->webhookUrl = $options['webhook_url'];
@@ -97,18 +99,25 @@ class MessageForwarder
      *
      * @return void
      */
-    public function forward(array $messages, ?int $batch_id, array $unsentBatches): void
-    {
+    public function forward(
+        array $messages,
+        ?int $batch_id,
+        array $unsentBatches
+    ): void {
         if (empty($messages) && empty($unsentBatches)) {
             // nothing to do:
             return;
         }
         $message = json_decode($messages[0]['data'] ?? $this->blankMessage, true);
         foreach ($unsentBatches as $unsentBatch) {
-            $message['text'] = "Resending previously failed [batch $unsentBatch](" . $this->vuowmaUrl . '?batch=' . $unsentBatch . ")  \n" . $message['text'];
+            $message['text'] = "Resending previously failed [batch $unsentBatch]("
+                . $this->vuowmaUrl . '?batch=' . $unsentBatch . ")  \n"
+                . $message['text'];
         }
         if (count($messages) > 1) {
-            $message['text'] = count($messages) . " log messages in [batch $batch_id](" . $this->vuowmaUrl . '?batch=' . $batch_id . ")  \nFirst message: " . $message['text'];
+            $message['text'] = count($messages)
+                . " log messages in [batch $batch_id](" . $this->vuowmaUrl
+                . '?batch=' . $batch_id . ")  \nFirst message: " . $message['text'];
         }
         $this->client->setUri($this->webhookUrl);
         $this->client->setMethod('POST');

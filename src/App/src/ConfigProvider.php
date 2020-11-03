@@ -46,6 +46,8 @@ class ConfigProvider
      *
      * To add a bit of a structure, each section is defined in a separate
      * method which returns an array with its configuration.
+     *
+     * @return array
      */
     public function __invoke() : array
     {
@@ -56,6 +58,8 @@ class ConfigProvider
 
     /**
      * Returns the container dependencies
+     *
+     * @return array
      */
     public function getDependencies() : array
     {
@@ -63,8 +67,10 @@ class ConfigProvider
             'factories' => [
                 Db\Table\Batch::class => Db\Table\TableFactory::class,
                 Db\Table\Message::class => Db\Table\TableFactory::class,
-                Handler\GetMessageHandler::class => Handler\MessageAwareFactory::class,
-                Handler\SaveMessageHandler::class => Handler\MessageAwareFactory::class,
+                Handler\GetMessageHandler::class =>
+                    Handler\MessageAwareFactory::class,
+                Handler\SaveMessageHandler::class =>
+                    Handler\MessageAwareFactory::class,
                 MessageForwarder::class => MessageForwarderFactory::class,
             ],
             'invokables' => [
