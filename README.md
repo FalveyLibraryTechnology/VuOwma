@@ -19,7 +19,7 @@ CREATE DATABASE vuowma;
 GRANT ALL ON vuowma.* TO 'vuowma-username'@'localhost' IDENTIFIED BY 'vuowma-password';
 </pre>
 
-3. Populate the database with the contents of the mysql.sql file in this repository:
+3. Populate the database with the contents of the `mysql.sql` file in this repository:
 
 <pre>
 mysql -uvuowma-username -p vuowma &lt; mysql.sql
@@ -31,7 +31,7 @@ mysql -uvuowma-username -p vuowma &lt; mysql.sql
 (for example, by symbolically linking it beneath your web root). Be sure to apply
 appropriate access restrictions!
 
-6. Copy config/autoload/local.php.dist to config/autoload/local.php, and edit the
+6. Copy `config/autoload/local.php.dist` to `config/autoload/local.php`, and edit the
 resulting file. Be sure to set the correct username and password for access to the
 database you created in step 2, and set base_url to the URL where you exposed the
 web content in step 5. The webhook_url should be the Office 365 Webhook URL.
@@ -39,9 +39,9 @@ web content in step 5. The webhook_url should be the Office 365 Webhook URL.
 7. Configure your other application(s) to point to the VuOwma endpoint instead of
 the Office 365 Webhook URL; now it will begin collecting messages for you.
 
-8. Set up cron jobs to run bin/send-batch.php and bin/expire-batches.php. You should
-run send-batch.php frequently (every 1-5 minutes) to ensure that you receive notifications
-in a timely fashion. You can run expire-batches.php less frequently (once per day),
+8. Set up cron jobs to run `bin/send-batch.php` and `bin/expire-batches.php`. You should
+run `send-batch.php` frequently (every 1-5 minutes) to ensure that you receive notifications
+in a timely fashion. You can run `expire-batches.php` less frequently (once per day),
 as it is only a cleanup routine. By default, messages will be deleted 30 days after they
 are received, but you can specify a different expiration period (in days) on the
-expire-batches.php command line.
+`expire-batches.php` command line.
