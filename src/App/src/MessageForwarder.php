@@ -91,13 +91,13 @@ class MessageForwarder
      * Forward locally stored information to the webhook handler.
      *
      * @param array $messages      Pending messages loaded from the database
-     * @param int   $batch_id      The ID of the batch currently being processed
+     * @param ?int  $batch_id      The ID of the batch currently being processed
      * @param array $unsentBatches An array of batch IDs that should have been sent
      * earlier but which failed for some reason
      *
      * @return void
      */
-    public function forward(array $messages, int $batch_id, array $unsentBatches): void
+    public function forward(array $messages, ?int $batch_id, array $unsentBatches): void
     {
         if (empty($messages) && empty($unsentBatches)) {
             // nothing to do:
