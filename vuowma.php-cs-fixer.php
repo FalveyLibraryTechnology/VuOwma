@@ -1,7 +1,7 @@
 <?php
 
-$finder = PhpCsFixer\Finder::create()
-    ->in(__DIR__ . '/bin')
+$finder = new PhpCsFixer\Finder();
+$finder->in(__DIR__ . '/bin')
     ->in(__DIR__ . '/src');
 
 $rules = [
@@ -14,7 +14,9 @@ $rules = [
     'blank_line_after_namespace' => true,
     'braces' => true,
     'cast_spaces' => ['space' => 'none'],
+    'class_attributes_separation' => ['elements' => ['method' => 'one', 'property' => 'one']],
     'concat_space' => ['spacing' => 'one'],
+    'constant_case' => ['case' => 'lower'],
     'elseif' => true,
     'encoding' => true,
     'ereg_to_preg' => true,
@@ -25,12 +27,11 @@ $rules = [
     'is_null' => true,
     'line_ending' => true,
     'linebreak_after_opening_tag' => true,
+    'list_syntax' => ['syntax' => 'short'],
     'lowercase_cast' => true,
-    'lowercase_constants' => true,
     'lowercase_keywords' => true,
     'magic_constant_casing' => true,
     'method_argument_space' => true,
-    'method_separation' => true,
     'native_function_casing' => true,
     'no_blank_lines_after_class_opening' => true,
     'no_blank_lines_after_phpdoc' => true,
@@ -39,7 +40,7 @@ $rules = [
     'no_empty_comment' => true,
     'no_empty_phpdoc' => true,
     'no_empty_statement' => true,
-    'no_extra_consecutive_blank_lines' => true,
+    'no_extra_blank_lines' => true,
     'no_leading_import_slash' => true,
     'no_leading_namespace_whitespace' => true,
     'no_mixed_echo_print' => true,
@@ -58,6 +59,12 @@ $rules = [
     'non_printable_character' => true,
     'ordered_imports' => true,
     'phpdoc_no_access' => true,
+    'php_unit_dedicate_assert_internal_type' => true,
+    'php_unit_expectation' => true,
+    'php_unit_method_casing' => true,
+    'php_unit_mock' => true,
+    'php_unit_no_expectation_annotation' => true,
+    'pow_to_exponentiation' => true,
     'single_blank_line_at_eof' => true,
     'single_class_element_per_statement' => true,
     'single_import_per_statement' => true,
@@ -76,8 +83,8 @@ if (!is_dir($cacheDir)) {
     mkdir($cacheDir);
 }
 
-return PhpCsFixer\Config::create()
-    ->setCacheFile($cacheDir . '/.code.cache')
+$config = new PhpCsFixer\Config();
+return $config->setCacheFile($cacheDir . '/.code.cache')
     ->setRiskyAllowed(true)
     ->setRules($rules)
     ->setFinder($finder);
