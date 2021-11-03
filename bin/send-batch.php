@@ -39,7 +39,8 @@ $batchTable = $container->get(Table\Batch::class);
 $unsentBatches = array_map(
     function ($batch) {
         return $batch['id'];
-    }, $batchTable->select(['sent' => 0])->toArray()
+    },
+    $batchTable->select(['sent' => 0])->toArray()
 );
 
 $messages = $messageTable->select(['batch_id' => null])->toArray();
@@ -59,7 +60,8 @@ if (count($messages) == 0) {
         $messageIds = array_map(
             function ($arr) {
                 return $arr['id'];
-            }, $messages
+            },
+            $messages
         );
         $sql->where->in('id', $messageIds)
             ->isNull('batch_id');
