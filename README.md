@@ -18,7 +18,8 @@ to O365 so that notifications can be distributed, and clean up old stored data.
 
 <pre>
 CREATE DATABASE vuowma;
-GRANT ALL ON vuowma.* TO 'vuowma-username'@'localhost' IDENTIFIED BY 'vuowma-password';
+CREATE USER 'vuowma-username'@'localhost' IDENTIFIED BY 'vuowma-password';
+GRANT ALL ON vuowma.* TO 'vuowma-username'@'localhost';
 </pre>
 
 3. Populate the database with the contents of the `mysql.sql` file in this repository:
