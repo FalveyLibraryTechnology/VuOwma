@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/FalveyLibraryTechnology/VuOwma.svg?branch=dev)](https://travis-ci.com/FalveyLibraryTechnology/VuOwma)
+[![CI Status](https://github.com/FalveyLibraryTechnology/VuOwma/actions/workflows/ci.yaml/badge.svg?branch=dev)](https://github.com/FalveyLibraryTechnology/VuOwma/actions/workflows/ci.yaml)
 
 # VuOwma - Outlook365 Webhook Message Aggregator
 
