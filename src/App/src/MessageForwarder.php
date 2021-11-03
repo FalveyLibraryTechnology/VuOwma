@@ -125,7 +125,11 @@ class MessageForwarder
         $this->client->setRawBody(json_encode($message));
         $response = $this->client->send();
         if (!$response->isSuccess()) {
-            throw new \Exception('Problem sending message.');
+            throw new \Exception(
+                "Problem sending message to $this->webhookUrl. Status: "
+                . $response->getStatusCode()
+                . ". Body: " . $response->getBody()
+            );
         }
     }
 }
