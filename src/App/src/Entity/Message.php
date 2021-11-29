@@ -1,6 +1,6 @@
 <?php
 /**
- * Messages entity class
+ * Message entity class
  *
  * PHP version 7
  *
@@ -28,20 +28,27 @@
 namespace App\Entity;
 
 /**
- * Messages entity class
+ * Message entity class
  *
  * @category VuOwma
  * @package  Database
  * @author   Demian Katz <demian.katz@villanova.edu>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://github.com/FalveyLibraryTechnology/VuOwma/
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="messages")
  */
-class Messages
+class Message
 {
     /**
      * ID
      *
      * @var int
+     *
+     * @ORM\Id
+     * @ORM\Column(type="bigint")
+     * @ORM\GeneratedValue
      */
     protected $id;
 
@@ -49,6 +56,8 @@ class Messages
      * Time
      *
      * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
      */
     protected $time;
 
@@ -56,13 +65,17 @@ class Messages
      * Message data
      *
      * @var string|null
+     *
+     * @ORM\Column(type="text")
      */
     protected $data;
 
     /**
      * Associated batch
      *
-     * @var Batches
+     * @var Batch
+     *
+     * @ORM\ManyToOne(targetEntity="Batch", inversedBy="messages")
      */
     protected $batch;
 
@@ -89,7 +102,7 @@ class Messages
      *
      * @param \DateTime $time Time to set
      *
-     * @return Messages
+     * @return Message
      */
     public function setTime($time)
     {
@@ -113,7 +126,7 @@ class Messages
      *
      * @param string|null $data Data to set
      *
-     * @return Messages
+     * @return Message
      */
     public function setData($data = null)
     {
@@ -135,11 +148,11 @@ class Messages
     /**
      * Set batch.
      *
-     * @param Batches|null $batch Batch to set
+     * @param Batch|null $batch Batch to set
      *
-     * @return Messages
+     * @return Message
      */
-    public function setBatch(Batches $batch = null)
+    public function setBatch(Batch $batch = null)
     {
         $this->batch = $batch;
 
@@ -149,7 +162,7 @@ class Messages
     /**
      * Get batch.
      *
-     * @return Batches|null
+     * @return Batch|null
      */
     public function getBatch()
     {

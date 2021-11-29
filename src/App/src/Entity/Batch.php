@@ -1,6 +1,6 @@
 <?php
 /**
- * Batches entity class
+ * Batch entity class
  *
  * PHP version 7
  *
@@ -27,21 +27,30 @@
  */
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
- * Batches entity class
+ * Batch entity class
  *
  * @category VuOwma
  * @package  Database
  * @author   Demian Katz <demian.katz@villanova.edu>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://github.com/FalveyLibraryTechnology/VuOwma/
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="batches")
  */
-class Batches
+class Batch
 {
     /**
      * ID
      *
      * @var int
+     *
+     * @ORM\Id
+     * @ORM\Column(type="bigint")
+     * @ORM\GeneratedValue
      */
     protected $id;
 
@@ -49,6 +58,8 @@ class Batches
      * Time
      *
      * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
      */
     protected $time;
 
@@ -56,8 +67,17 @@ class Batches
      * Sent status
      *
      * @var bool|null
+     *
+     * @ORM\Column(type="boolean")
      */
-    protected $sent = '0';
+    protected $sent = false;
+
+    /**
+     * Messages in batch
+     *
+     * @var Message[]
+     */
+    protected $messages = [];
 
     /**
      * Constructor
@@ -82,7 +102,7 @@ class Batches
      *
      * @param \DateTime $time Time to set
      *
-     * @return Batches
+     * @return Batch
      */
     public function setTime($time)
     {
@@ -106,7 +126,7 @@ class Batches
      *
      * @param bool|null $sent Was the batch sent?
      *
-     * @return Batches
+     * @return Batch
      */
     public function setSent($sent = null)
     {
