@@ -42,7 +42,8 @@ $unsentBatches = $batchRepository->findBy(['sent' => false]);
 $unsentBatchIds = array_map(
     function ($batch) {
         return $batch->getId();
-    }, $unsentBatches
+    },
+    $unsentBatches
 );
 
 $msgRepository = $entityManager->getRepository(Message::class);
