@@ -75,13 +75,11 @@ class ConfigProvider
             ],
             'factories' => [
                 AnnotationDriver::class => AnnotationDriverFactory::class,
-                Db\Table\Batch::class => Db\Table\TableFactory::class,
-                Db\Table\Message::class => Db\Table\TableFactory::class,
                 EntityManager::class => EntityManagerFactory::class,
                 Handler\GetMessageHandler::class =>
-                    Handler\MessageAwareFactory::class,
+                    Handler\DoctrineAwareFactory::class,
                 Handler\SaveMessageHandler::class =>
-                    Handler\MessageAwareFactory::class,
+                    Handler\DoctrineAwareFactory::class,
                 MessageForwarder::class => MessageForwarderFactory::class,
             ],
             'invokables' => [

@@ -28,7 +28,8 @@
 declare(strict_types=1);
 namespace App\Handler;
 
-use App\Db\Table\Message;
+use App\Entity\Message;
+use Doctrine\ORM\EntityManager;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -46,20 +47,20 @@ use Psr\Http\Server\RequestHandlerInterface;
 class SaveMessageHandler implements RequestHandlerInterface
 {
     /**
-     * Message table gateway
+     * Entity manager
      *
-     * @var Message
+     * @var EntityManager
      */
-    protected $table;
+    protected $entityManager;
 
     /**
      * Constructor
      *
-     * @param Message $table Message table gateway
+     * @param EntityManager $entityManager Entity manager
      */
-    public function __construct(Message $table)
+    public function __construct(EntityManager $entityManager)
     {
-        $this->table = $table;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -71,7 +72,10 @@ class SaveMessageHandler implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request) : ResponseInterface
     {
-        $success = $this->table->insert(['data' => $request->getBody()]);
+        $msg = new Message();
+        $msg->setData($request->getBody());
+        $this->entityManager->persist($msg);
+        $this->entityManager->flush();
         return new JsonResponse(compact('success'));
     }
 }
