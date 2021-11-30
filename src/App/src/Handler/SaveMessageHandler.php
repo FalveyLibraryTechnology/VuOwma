@@ -74,8 +74,14 @@ class SaveMessageHandler implements RequestHandlerInterface
     {
         $msg = new Message();
         $msg->setData($request->getBody());
-        $this->entityManager->persist($msg);
-        $this->entityManager->flush();
+        $success = true;
+        try {
+            $this->entityManager->persist($msg);
+            $this->entityManager->flush();
+        } catch (\Exception $e) {
+            error_log('Error saving data: ' . $e->getMessage());
+            $success = false;
+        }
         return new JsonResponse(compact('success'));
     }
 }
