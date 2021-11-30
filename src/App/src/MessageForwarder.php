@@ -27,6 +27,7 @@
  */
 namespace App;
 
+use App\Entity\Message;
 use Laminas\Http\Client;
 
 /**
@@ -92,10 +93,10 @@ class MessageForwarder
     /**
      * Forward locally stored information to the webhook handler.
      *
-     * @param array $messages      Pending messages loaded from the database
-     * @param ?int  $batch_id      The ID of the batch currently being processed
-     * @param array $unsentBatches An array of batch IDs that should have been sent
-     * earlier but which failed for some reason
+     * @param Message[] $messages      Pending messages loaded from the database
+     * @param ?int      $batch_id      The ID of the batch currently being processed
+     * @param array     $unsentBatches An array of batch IDs that should have been
+     * sent earlier but which failed for some reason
      *
      * @return void
      */
@@ -104,11 +105,13 @@ class MessageForwarder
         ?int $batch_id,
         array $unsentBatches
     ): void {
-        if (empty($messages) && empty($unsentBatches)) {
+        if (count($messages) === 0 && empty($unsentBatches)) {
             // nothing to do:
             return;
         }
-        $message = json_decode($messages[0]['data'] ?? $this->blankMessage, true);
+        $firstMessage = reset($messages);
+        $firstMessageData = $firstMessage ? $firstMessage->getData() : null;
+        $message = json_decode($firstMessageData ?? $this->blankMessage, true);
         foreach ($unsentBatches as $unsentBatch) {
             $message['text'] = "Resending previously failed [batch $unsentBatch]("
                 . $this->vuowmaUrl . '?batch=' . $unsentBatch . ")  \n"
