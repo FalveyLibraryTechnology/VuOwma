@@ -27,8 +27,8 @@
  */
 namespace App\Doctrine;
 
-use Interop\Container\ContainerInterface;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Interop\Container\ContainerInterface;
 
 /**
  * Factory for Doctrine AnnotationDriver.
