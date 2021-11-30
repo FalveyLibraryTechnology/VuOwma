@@ -29,6 +29,11 @@
 declare(strict_types=1);
 namespace App;
 
+use App\Doctrine\AnnotationDriverFactory;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Roave\PsrContainerDoctrine\EntityManagerFactory;
+
 /**
  * The configuration provider for the App module
  *
@@ -64,9 +69,15 @@ class ConfigProvider
     public function getDependencies() : array
     {
         return [
+            'aliases' => [
+                'doctrine.entity_manager.orm_default' => EntityManager::class,
+                'doctrine.driver.orm_default' => AnnotationDriver::class,
+            ],
             'factories' => [
+                AnnotationDriver::class => AnnotationDriverFactory::class,
                 Db\Table\Batch::class => Db\Table\TableFactory::class,
                 Db\Table\Message::class => Db\Table\TableFactory::class,
+                EntityManager::class => EntityManagerFactory::class,
                 Handler\GetMessageHandler::class =>
                     Handler\MessageAwareFactory::class,
                 Handler\SaveMessageHandler::class =>
