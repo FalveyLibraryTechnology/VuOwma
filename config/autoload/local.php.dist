@@ -10,39 +10,23 @@
 declare(strict_types=1);
 
 return [
-  'db' => [
-      'driver'    => 'mysqli',
-      'database' => 'vuowma',
-      'username'  => 'vuowma_user',
-      'password'  => 'vuowma_pass',
-      'charset'  => 'utf8',
-  ],
-  'doctrine' => [
-      'configuration' => [
-          'orm_default' => [],
-      ],
-      'connection' => [
-          'orm_default' => [
-              'driver_class' => \Doctrine\DBAL\Driver\PDO\MySQL\Driver::class,
-              'params' => [
-                  'dbname' => 'vuowma',
-                  'user' => 'vuowma_user',
-                  'password' => 'vuowma_pass',
-                  'charset' => 'utf8',
-              ]
-          ],
-      ],
-      'driver' => [
-          'orm_default' => [
-              'class' => \Doctrine\Persistence\Mapping\Driver\PHPDriver::class,
-              'paths' => [realpath(__DIR__ . '/../../data/doctrine')],
-          ],
-      ],
-  ],
-  'vuowma' => [
-      // The public URL for this application, for link-generating purposes:
-      'base_url' => 'http://localhost/vuowma/',
-      // The webhook URL for Office365, for message-forwarding:
-      'webhook_url' => 'https://outlook.office.com/webhook/xxx/IncomingWebhook/yyy',
-  ],
+    'doctrine' => [
+        'connection' => [
+            'orm_default' => [
+                'driver_class' => \Doctrine\DBAL\Driver\PDO\MySQL\Driver::class,
+                'params' => [
+                    'dbname' => 'vuowma',
+                    'user' => 'vuowma_user',
+                    'password' => 'vuowma_pass',
+                    'charset' => 'utf8',
+                ]
+            ],
+        ],
+    ],
+    'vuowma' => [
+        // The public URL for this application, for link-generating purposes:
+        'base_url' => 'http://localhost/vuowma/',
+        // The webhook URL for Office365, for message-forwarding:
+        'webhook_url' => 'https://outlook.office.com/webhook/xxx/IncomingWebhook/yyy',
+    ],
 ];
