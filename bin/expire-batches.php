@@ -25,13 +25,14 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://github.com/FalveyLibraryTechnology/VuOwma/
  */
-use App\Db\Table;
+use App\Entity\Batch;
+use Doctrine\ORM\EntityManager;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $container = include __DIR__ . '/../config/container.php';
 
-$batchTable = $container->get(Table\Batch::class);
+$entityManager = $container->get(EntityManager::class);
 
 $maxAgeInDays = intval($argv[1] ?? 30);
 if ($maxAgeInDays < 1) {
@@ -39,10 +40,13 @@ if ($maxAgeInDays < 1) {
     exit(1);
 }
 
-$callback = function ($sql) use ($maxAgeInDays) {
-    $relativeDate = "DATE_SUB(CURRENT_TIMESTAMP, INTERVAL $maxAgeInDays DAY)";
-    $sql->where->lessThan('time', new \Laminas\Db\Sql\Expression($relativeDate));
-};
-$count = $batchTable->delete($callback);
+$queryBuilder = $entityManager->createQueryBuilder();
+$queryBuilder->delete(Batch::class, 'b');
+$queryBuilder->where('b.time < :time');
+$queryBuilder->setParameter('time', new \DateTime("now - $maxAgeInDays days"));
+$query = $queryBuilder->getQuery();
+$count = $query->getResult();
+
 echo "Deleted {$count} batch(es).\n";
+
 exit(0);
