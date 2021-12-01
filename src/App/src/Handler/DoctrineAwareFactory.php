@@ -1,10 +1,10 @@
 <?php
 /**
- * Table factory
+ * Factory for handlers depending on Doctrine.
  *
  * PHP version 7
  *
- * Copyright (C) Villanova University 2020.
+ * Copyright (C) Villanova University 2021.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -20,25 +20,25 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category VuOwma
- * @package  Database
+ * @package  Handlers
  * @author   Demian Katz <demian.katz@villanova.edu>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://github.com/FalveyLibraryTechnology/VuOwma/
  */
-namespace App\Db\Table;
+namespace App\Handler;
 
 use Interop\Container\ContainerInterface;
 
 /**
- * Table factory
+ * Factory for handlers depending on Doctrine.
  *
  * @category VuOwma
- * @package  Database
+ * @package  Handlers
  * @author   Demian Katz <demian.katz@villanova.edu>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://github.com/FalveyLibraryTechnology/VuOwma/
  */
-class TableFactory
+class DoctrineAwareFactory
 {
     /**
      * Create an object
@@ -63,7 +63,7 @@ class TableFactory
             throw new \Exception('Unexpected options passed to factory.');
         }
         return new $requestedName(
-            $container->get(\Laminas\Db\Adapter\Adapter::class)
+            $container->get(\Doctrine\ORM\EntityManager::class)
         );
     }
 }

@@ -28,7 +28,8 @@
 declare(strict_types=1);
 namespace App\Handler;
 
-use App\Db\Table\Message;
+use App\Entity\Message;
+use Doctrine\ORM\EntityManager;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -46,20 +47,20 @@ use Psr\Http\Server\RequestHandlerInterface;
 class GetMessageHandler implements RequestHandlerInterface
 {
     /**
-     * Message table gateway
+     * Entity manager
      *
-     * @var Message
+     * @var EntityManager
      */
-    protected $table;
+    protected $entityManager;
 
     /**
      * Constructor
      *
-     * @param Message $table Message table gateway
+     * @param EntityManager $entityManager Entity manager
      */
-    public function __construct(Message $table)
+    public function __construct(EntityManager $entityManager)
     {
-        $this->table = $table;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -71,13 +72,19 @@ class GetMessageHandler implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request) : ResponseInterface
     {
-        $formatter = function ($arr) {
-            $arr['data'] = json_decode($arr['data'] ?? '{}');
-            return $arr;
+        $formatter = function ($msg) {
+            $batch = $msg->getBatch();
+            return [
+                'id' => intval($msg->getId()),
+                'time' => $msg->getTime()->format('Y-m-d H:i:s'),
+                'data' => json_decode($msg->getData() ?? '{}'),
+                'batch_id' => $batch ? intval($batch->getId()) : null,
+            ];
         };
         $batch_id = $request->getQueryParams()['batch'] ?? null;
-        $filter = $batch_id ? compact('batch_id') : ['batch_id' => null];
-        $data = array_map($formatter, $this->table->select($filter)->toArray());
+        $filter = ['batch' => $batch_id ? $batch_id : null];
+        $repository = $this->entityManager->getRepository(Message::class);
+        $data = array_map($formatter, $repository->findBy($filter));
         return new JsonResponse($data);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Batch table gateway
+ * Factory for Doctrine AnnotationDriver.
  *
  * PHP version 7
  *
@@ -25,12 +25,13 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://github.com/FalveyLibraryTechnology/VuOwma/
  */
-namespace App\Db\Table;
+namespace App\Doctrine;
 
-use Laminas\Db\Adapter\Adapter;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Interop\Container\ContainerInterface;
 
 /**
- * Batch table gateway
+ * Factory for Doctrine AnnotationDriver.
  *
  * @category VuOwma
  * @package  Database
@@ -38,15 +39,30 @@ use Laminas\Db\Adapter\Adapter;
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://github.com/FalveyLibraryTechnology/VuOwma/
  */
-class Batch extends \Laminas\Db\TableGateway\TableGateway
+class AnnotationDriverFactory
 {
     /**
-     * Constructor
+     * Create an object
      *
-     * @param Adapter $adapter Database adapter
+     * @param ContainerInterface $container     Service manager
+     * @param string             $requestedName Service being created
+     * @param null|array         $options       Extra options (optional)
+     *
+     * @return object
+     *
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     * creating a service.
+     * @throws ContainerException if any other error occurs
      */
-    public function __construct(Adapter $adapter)
-    {
-        parent::__construct('batches', $adapter);
+    public function __invoke(
+        ContainerInterface $container,
+        $requestedName,
+        array $options = null
+    ) {
+        if (!empty($options)) {
+            throw new \Exception('Unexpected options passed to factory.');
+        }
+        return AnnotationDriver::create(__DIR__ . '/../Entity');
     }
 }

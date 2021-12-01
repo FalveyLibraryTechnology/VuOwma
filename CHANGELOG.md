@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## Next Release - TBD
+## 2.0.0 - TBD
 
 ### Added
 
@@ -10,7 +10,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Changed
 
-- The minimum PHP version requirement has been raised to 7.3.
+- The minimum PHP version requirement has been raised to 7.4.
+- Database handling is now done by Doctrine instead of Laminas\Db.
 
 ### Deprecated
 

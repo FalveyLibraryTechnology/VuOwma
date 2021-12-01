@@ -25,76 +25,67 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://github.com/FalveyLibraryTechnology/VuOwma/
  */
-use App\Db\Table;
+use App\Entity\Batch;
+use App\Entity\Message;
 use App\MessageForwarder;
+use Doctrine\ORM\EntityManager;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $container = include __DIR__ . '/../config/container.php';
 
-$messageTable = $container->get(Table\Message::class);
-$batchTable = $container->get(Table\Batch::class);
+$entityManager = $container->get(EntityManager::class);
 
 // Let's check for failed batches from prior runs:
-$unsentBatches = array_map(
+$batchRepository = $entityManager->getRepository(Batch::class);
+$unsentBatches = $batchRepository->findBy(['sent' => false]);
+$unsentBatchIds = array_map(
     function ($batch) {
-        return $batch['id'];
+        return $batch->getId();
     },
-    $batchTable->select(['sent' => 0])->toArray()
+    $unsentBatches
 );
 
-$messages = $messageTable->select(['batch_id' => null])->toArray();
+$msgRepository = $entityManager->getRepository(Message::class);
+$messages = $msgRepository->findBy(['batch' => null]);
 
 if (count($messages) == 0) {
     // No messages to send? Set up an empty placeholder batch in case we still
     // need to resend failed batches:
-    $batch = null;
+    $batchId = null;
 } else {
     // If we got this far, we have messages, so let's create a batch:
-    $batchTable->insert(['sent' => 0]);
-    $batch = $batchTable->select(
-        ['id' => $batchTable->getLastInsertValue()]
-    )->toArray()[0];
+    $batch = new Batch();
+    $entityManager->persist($batch);
+    $entityManager->flush();
+    $batchId = $batch->getId();
 
-    $where = function ($sql) use ($messages) {
-        $messageIds = array_map(
-            function ($arr) {
-                return $arr['id'];
-            },
-            $messages
-        );
-        $sql->where->in('id', $messageIds)
-            ->isNull('batch_id');
-    };
-    $count = $messageTable->update(['batch_id' => $batch['id']], $where);
-
-    // If something weird happened and we updated an unexpected number of rows,
-    // we should reload the messages:
-    if ($count != count($messages)) {
-        echo "WARNING: message count mismatch; reloading data!\n";
-        $messages = $messageTable->select(['batch_id' => $batch['id']])->toArray();
+    foreach ($messages as $message) {
+        $message->setBatch($batch);
+        $entityManager->persist($message);
     }
+    $entityManager->flush();
 }
 
 // Send the batch
 $forwarder = $container->get(MessageForwarder::class);
-$forwarder->forward($messages, $batch['id'] ?? null, $unsentBatches);
+$forwarder->forward($messages, $batchId, $unsentBatchIds);
 
 // Mark the batch as sent
-$sentBatches = $unsentBatches;
-if (isset($batch['id'])) {
-    $sentBatches[] = $batch['id'];
+if (!empty($batch)) {
+    $batch->setSent(true);
+    $entityManager->persist($batch);
 }
-$updateCallback = function ($sql) use ($sentBatches) {
-    $sql->where->in('id', $sentBatches);
-};
-$batchTable->update(['sent' => 1], $updateCallback);
 if (!empty($unsentBatches)) {
-    echo "Resent failed batch(es): " . implode(', ', $unsentBatches) . "\n";
+    foreach ($unsentBatches as $unsentBatch) {
+        $unsentBatch->setSent(true);
+        $entityManager->persist($unsentBatch);
+    }
+    echo "Resent failed batch(es): " . implode(', ', $unsentBatchIds) . "\n";
 }
-if (isset($batch['id'])) {
-    echo "Sent batch {$batch['id']} with {$count} message(s).\n";
-} else {
-    echo "No new messages to send.\n";
-}
+$entityManager->flush();
+$count = count($messages);
+echo isset($batchId)
+    ? "Sent batch {$batchId} with {$count} message(s).\n"
+    : "No new messages to send.\n";
 exit(0);
