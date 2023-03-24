@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Helper class to perform actual message forwarding.
  *
@@ -25,6 +26,7 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://github.com/FalveyLibraryTechnology/VuOwma/
  */
+
 namespace App;
 
 use App\Entity\Message;

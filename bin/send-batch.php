@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Console tool to create and send a new batch of messages.
  *
@@ -25,6 +26,7 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://github.com/FalveyLibraryTechnology/VuOwma/
  */
+
 use App\Entity\Batch;
 use App\Entity\Message;
 use App\MessageForwarder;
