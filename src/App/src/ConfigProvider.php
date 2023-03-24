@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The configuration provider for the App module
  *
@@ -26,7 +27,9 @@
  * @link     https://github.com/FalveyLibraryTechnology/VuOwma/
  * @see      https://docs.laminas.dev/laminas-component-installer/
  */
+
 declare(strict_types=1);
+
 namespace App;
 
 use App\Doctrine\AnnotationDriverFactory;
@@ -54,7 +57,7 @@ class ConfigProvider
      *
      * @return array
      */
-    public function __invoke() : array
+    public function __invoke(): array
     {
         return [
             'dependencies' => $this->getDependencies(),
@@ -66,7 +69,7 @@ class ConfigProvider
      *
      * @return array
      */
-    public function getDependencies() : array
+    public function getDependencies(): array
     {
         return [
             'aliases' => [

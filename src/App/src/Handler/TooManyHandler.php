@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Handler for "simulate too many requests error" action.
  *
@@ -25,7 +26,9 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://github.com/FalveyLibraryTechnology/VuOwma/
  */
+
 declare(strict_types=1);
+
 namespace App\Handler;
 
 use Laminas\Diactoros\Response\JsonResponse;
@@ -51,7 +54,7 @@ class TooManyHandler implements RequestHandlerInterface
      *
      * @return ResponseInterface
      */
-    public function handle(ServerRequestInterface $request) : ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         return new JsonResponse(['simulated_429_error' => true], 429);
     }

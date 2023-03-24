@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Handler for "get messages" action.
  *
@@ -25,7 +26,9 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://github.com/FalveyLibraryTechnology/VuOwma/
  */
+
 declare(strict_types=1);
+
 namespace App\Handler;
 
 use App\Entity\Message;
@@ -70,7 +73,7 @@ class GetMessageHandler implements RequestHandlerInterface
      *
      * @return ResponseInterface
      */
-    public function handle(ServerRequestInterface $request) : ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $formatter = function ($msg) {
             $batch = $msg->getBatch();

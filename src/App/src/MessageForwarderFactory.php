@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Factory for MessageForwarder.
  *
@@ -25,6 +26,7 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://github.com/FalveyLibraryTechnology/VuOwma/
  */
+
 namespace App;
 
 use Interop\Container\ContainerInterface;
