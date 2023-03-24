@@ -8,11 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version: ['7.4', '8.0']
+        php-version: ['8.0', '8.1', '8.2']
         include:
-          - php-version: 7.4
-            phing_tasks: "phpunitfast phpcs-console php-cs-fixer-dryrun"
           - php-version: 8.0
+            phing_tasks: "phpunitfast phpcs-console php-cs-fixer-dryrun"
+          - php-version: 8.1
+            phing_tasks: "phpunitfast"
+          - php-version: 8.2
             phing_tasks: "phpunitfast"
 
     steps:
