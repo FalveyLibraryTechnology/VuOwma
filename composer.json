@@ -4,7 +4,7 @@
     "license": "GPL-2.0",
     "config": {
         "platform": {
-            "php": "7.4.0"
+            "php": "8.0.0"
         },
         "process-timeout": 0,
         "allow-plugins": {
@@ -12,7 +12,7 @@
         }
     },
     "require": {
-        "php": "^7.4",
+        "php": "^8.0",
         "composer/package-versions-deprecated": "^1.10.99",
         "doctrine/orm": "^2.10.2",
         "laminas/laminas-component-installer": "^3.0.1",
