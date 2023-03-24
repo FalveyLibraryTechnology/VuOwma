@@ -112,6 +112,9 @@ class MessageForwarder
         $firstMessage = reset($messages);
         $firstMessageData = $firstMessage ? $firstMessage->getData() : null;
         $message = json_decode($firstMessageData ?? $this->blankMessage, true);
+        if (!isset($message['text'])) {
+            $message['text'] = '--no message provided--';
+        }
         foreach ($unsentBatches as $unsentBatch) {
             $message['text'] = "Resending previously failed [batch $unsentBatch]("
                 . $this->vuowmaUrl . '?batch=' . $unsentBatch . ")  \n"
