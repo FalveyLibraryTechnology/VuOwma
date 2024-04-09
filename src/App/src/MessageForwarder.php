@@ -32,6 +32,8 @@ namespace App;
 use App\Entity\Message;
 use Laminas\Http\Client;
 
+use function count;
+
 /**
  * Helper class to perform actual message forwarding.
  *
@@ -136,7 +138,7 @@ class MessageForwarder
             throw new \Exception(
                 "Problem sending message to $this->webhookUrl. Status: "
                 . $response->getStatusCode()
-                . ". Body: " . $response->getBody()
+                . '. Body: ' . $response->getBody()
             );
         }
     }

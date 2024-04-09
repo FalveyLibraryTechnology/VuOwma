@@ -83,7 +83,7 @@ if (!empty($unsentBatches)) {
         $unsentBatch->setSent(true);
         $entityManager->persist($unsentBatch);
     }
-    echo "Resent failed batch(es): " . implode(', ', $unsentBatchIds) . "\n";
+    echo 'Resent failed batch(es): ' . implode(', ', $unsentBatchIds) . "\n";
 }
 $entityManager->flush();
 $count = count($messages);
