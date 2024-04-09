@@ -32,14 +32,14 @@ jobs:
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache composer dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Cache php-cs-fixer data
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: .php_cs_cache
           key: "php-${{ matrix.php-version }}-php-cs-fixer-${{ github.sha }}"
