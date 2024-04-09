@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "023d036209141a2581d58debce835d3d",
+    "content-hash": "cec1a8ef387ba5aadde7cef24bda6fd9",
     "packages": [
         {
             "name": "brick/varexporter",
@@ -206,16 +206,16 @@
         },
         {
             "name": "doctrine/cache",
-            "version": "1.13.0",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "56cd022adb5514472cb144c087393c1821911d09"
+                "reference": "1ca8f21980e770095a31456042471a57bc4c68fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/56cd022adb5514472cb144c087393c1821911d09",
-                "reference": "56cd022adb5514472cb144c087393c1821911d09",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/1ca8f21980e770095a31456042471a57bc4c68fb",
+                "reference": "1ca8f21980e770095a31456042471a57bc4c68fb",
                 "shasum": ""
             },
             "require": {
@@ -225,18 +225,12 @@
                 "doctrine/common": ">2.2,<2.4"
             },
             "require-dev": {
-                "alcaeus/mongo-php-adapter": "^1.1",
                 "cache/integration-tests": "dev-master",
                 "doctrine/coding-standard": "^9",
-                "mongodb/mongodb": "^1.1",
                 "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5",
-                "predis/predis": "~1.0",
                 "psr/cache": "^1.0 || ^2.0 || ^3.0",
                 "symfony/cache": "^4.4 || ^5.4 || ^6",
                 "symfony/var-exporter": "^4.4 || ^5.4 || ^6"
-            },
-            "suggest": {
-                "alcaeus/mongo-php-adapter": "Required to use legacy MongoDB driver"
             },
             "type": "library",
             "autoload": {
@@ -285,7 +279,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/cache/issues",
-                "source": "https://github.com/doctrine/cache/tree/1.13.0"
+                "source": "https://github.com/doctrine/cache/tree/2.2.0"
             },
             "funding": [
                 {
@@ -301,7 +295,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-20T20:06:54+00:00"
+            "time": "2022-05-20T20:07:39+00:00"
         },
         {
             "name": "doctrine/collections",
@@ -3129,36 +3123,36 @@
         },
         {
             "name": "roave/psr-container-doctrine",
-            "version": "3.10.0",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/psr-container-doctrine.git",
-                "reference": "344a520d47336b90c4bce3f8f8b23099f27e69c5"
+                "reference": "e53f82c918d1d5d02dd190ee0a596e8a11a55b94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/psr-container-doctrine/zipball/344a520d47336b90c4bce3f8f8b23099f27e69c5",
-                "reference": "344a520d47336b90c4bce3f8f8b23099f27e69c5",
+                "url": "https://api.github.com/repos/Roave/psr-container-doctrine/zipball/e53f82c918d1d5d02dd190ee0a596e8a11a55b94",
+                "reference": "e53f82c918d1d5d02dd190ee0a596e8a11a55b94",
                 "shasum": ""
             },
             "require": {
-                "doctrine/annotations": "^1.14.2 || ^2.0",
-                "doctrine/cache": "^1.13.0",
+                "doctrine/annotations": "^1.14.3 || ^2.0.1",
+                "doctrine/cache": "^2.2",
                 "doctrine/common": "^3.4.3",
                 "doctrine/dbal": "^3.7.1",
                 "doctrine/event-manager": "^1.2.0 || ^2.0",
                 "doctrine/migrations": "^3.6.0",
                 "doctrine/orm": "^2.16.2",
-                "doctrine/persistence": "^2.5.6 || ^3.1",
+                "doctrine/persistence": "^2.5.7 || ^3.2",
                 "php": "~8.1.0 || ~8.2.0",
-                "psr/cache": "^1.0.1 || ^2.0.0 || ^3.0.0",
-                "psr/container": "^1.0 || ^2.0"
+                "psr/cache": "^2.0.0 || ^3.0.0",
+                "psr/container": "^1.1.2 || ^2.0.2"
             },
             "require-dev": {
                 "doctrine/coding-standard": "^12.0.0",
                 "phpunit/phpunit": "^10.4.2",
                 "psalm/plugin-phpunit": "^0.18.4",
-                "symfony/yaml": "^6.3.3",
+                "symfony/yaml": "^6.3.7",
                 "vimeo/psalm": "^5.15.0"
             },
             "type": "library",
@@ -3186,9 +3180,9 @@
             "homepage": "https://github.com/Roave/psr-container-doctrine",
             "support": {
                 "issues": "https://github.com/Roave/psr-container-doctrine/issues",
-                "source": "https://github.com/Roave/psr-container-doctrine/tree/3.10.0"
+                "source": "https://github.com/Roave/psr-container-doctrine/tree/4.0.0"
             },
-            "time": "2023-10-27T13:21:51+00:00"
+            "time": "2023-10-30T08:41:43+00:00"
         },
         {
             "name": "symfony/console",
