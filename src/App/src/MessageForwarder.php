@@ -111,7 +111,7 @@ class MessageForwarder
      */
     protected function formatMessage($message)
     {
-        if  ($this->messageFormat === 'messagecard') {
+        if ($this->messageFormat === 'messagecard') {
             return $message;
         }
         // If we got this far, we need to translate messagecard to adaptivecard:
