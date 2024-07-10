@@ -2,13 +2,16 @@
 
 # VuOwma - Outlook365 Webhook Message Aggregator
 
-This tool was developed at Villanova University to aggregate O365 webhook messages coming from VuFind's logger. This prevents heavy traffic from triggering rate limits on the O365 platform.
+This tool was developed at Villanova University to aggregate O365 webhook messages coming from VuFind's logger.
+This prevents heavy traffic from triggering rate limits on the O365 platform. When O365 webhooks were discontinued,
+the platform was updated to translate traffic to Workflow AdaptiveCard format in addition to aggregation in order
+to keep existing messaging workflows operational.
 
 ## Theory of Operation
 
 VuOwma is a web service and set of command line tools. The web service collects messages and
 allows viewing of collected messages. The command line utilities forward batches of messages
-to O365 so that notifications can be distributed, and clean up old stored data.
+to O365/Workflows so that notifications can be distributed, and clean up old stored data.
 
 ## Installation / Configuration
 
@@ -37,7 +40,8 @@ appropriate access restrictions!
 6. Copy `config/autoload/local.php.dist` to `config/autoload/local.php`, and edit the
 resulting file. Be sure to set the correct username and password for access to the
 database you created in step 2, and set base_url to the URL where you exposed the
-web content in step 5. The webhook_url should be the Office 365 Webhook URL.
+web content in step 5. The webhook_url should be the Office 365 or Workflow Webhook URL.
+The message_format should be set to the appropriate format expected by the webhook.
 
 7. Configure your other application(s) to point to the VuOwma endpoint instead of
 the Office 365 Webhook URL; now it will begin collecting messages for you.

@@ -62,6 +62,13 @@ class MessageForwarder
     protected $client;
 
     /**
+     * Message format to send to webhook
+     *
+     * @var string
+     */
+    protected $messageFormat;
+
+    /**
      * URL of the VuOwma public endpoint
      *
      * @var string
@@ -69,7 +76,7 @@ class MessageForwarder
     protected $vuowmaUrl;
 
     /**
-     * URL of the Office365 webhook
+     * URL of the Office365/Workflows webhook
      *
      * @var string
      */
@@ -92,6 +99,49 @@ class MessageForwarder
         $this->vuowmaUrl = $options['base_url'];
         $this->webhookUrl = $options['webhook_url'];
         $this->client = $options['client'] ?? new Client();
+        $this->messageFormat = trim(strtolower($options['message_format'] ?? 'messagecard'));
+    }
+
+    /**
+     * Reformat a message if necessary.
+     *
+     * @param array $message Message to reformat.
+     *
+     * @return array
+     */
+    protected function formatMessage($message)
+    {
+        if  ($this->messageFormat === 'messagecard') {
+            return $message;
+        }
+        // If we got this far, we need to translate messagecard to adaptivecard:
+        $body = [];
+        if (!empty($message['title'])) {
+            $body[] = [
+                'type' => 'TextBlock',
+                'text' => '**' . $message['title'] . '**',
+                'size' => 'large',
+            ];
+        }
+        $body[] = [
+            'type' => 'TextBlock',
+            'text' => $message['text'],
+        ];
+        return [
+            'type' => 'message',
+            'attachments' => [
+                [
+                    'contentType' => 'application/vnd.microsoft.card.adaptive',
+                    'contentUrl' => null,
+                    'content' => [
+                        '$schema' => 'http://adaptivecards.io/schemas/adaptive-card.json',
+                        'type' => 'AdaptiveCard',
+                        'version' => '1.2',
+                        'body' => $body,
+                    ],
+                ],
+            ],
+        ];
     }
 
     /**
@@ -132,7 +182,7 @@ class MessageForwarder
         $this->client->setUri($this->webhookUrl);
         $this->client->setMethod('POST');
         $this->client->setEncType('application/json');
-        $this->client->setRawBody(json_encode($message));
+        $this->client->setRawBody(json_encode($this->formatMessage($message)));
         $response = $this->client->send();
         if (!$response->isSuccess()) {
             throw new \Exception(

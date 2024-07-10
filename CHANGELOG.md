@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 2.3.0 - 2024-07-10
+
+### Added
+
+- Added message_format option and support for converting to AdaptiveCards for Workflows to support the deprecation of O365 Teams webhooks.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 2.2.0 - 2024-04-09
 
 ### Added
