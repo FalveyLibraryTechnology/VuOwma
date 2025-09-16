@@ -4,7 +4,7 @@
     "license": "GPL-2.0",
     "config": {
         "platform": {
-            "php": "8.1"
+            "php": "8.2"
         },
         "process-timeout": 0,
         "allow-plugins": {
@@ -12,30 +12,30 @@
         }
     },
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "composer/package-versions-deprecated": "^1.10.99",
-        "doctrine/orm": "^2.10.2",
+        "doctrine/orm": "^3.0.0",
         "laminas/laminas-component-installer": "^3.0.1",
         "laminas/laminas-config-aggregator": "^1.2",
         "laminas/laminas-diactoros": "^3.3.1",
         "laminas/laminas-http": "^2.13",
-        "laminas/laminas-servicemanager": "^3.4",
+        "laminas/laminas-servicemanager": "^4.4.0",
         "laminas/laminas-stdlib": "^3.2.1",
         "mezzio/mezzio": "^3.2.1",
+        "mezzio/mezzio-fastroute": "^3.13",
         "mezzio/mezzio-helpers": "^5.3",
-        "mezzio/mezzio-laminasrouter": "^3.0.1",
-        "roave/psr-container-doctrine": "^4.0.0"
+        "roave/psr-container-doctrine": "^5.0.0"
     },
     "require-dev": {
         "filp/whoops": "^2.7.1",
-        "friendsofphp/php-cs-fixer": "3.53.0",
+        "friendsofphp/php-cs-fixer": "3.87.2",
         "laminas/laminas-development-mode": "^3.2",
         "mezzio/mezzio-tooling": "^2.6",
-        "phing/phing": "3.0",
+        "phing/phing": "3.1.0",
         "phpspec/prophecy": "^1.10.3",
-        "phpunit/phpunit": "^10.5",
+        "phpunit/phpunit": "^11.5",
         "roave/security-advisories": "dev-master",
-        "squizlabs/php_codesniffer": "^3.6.1"
+        "squizlabs/php_codesniffer": "^4.0.0"
     },
     "autoload": {
         "psr-4": {
